@@ -1,0 +1,16 @@
+{
+  "name": "pollifyr",
+  "version": "1.0.0",
+  "description": "Create",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Treveur",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "emoji-regex": "^9.2.0"
+  }
+}
