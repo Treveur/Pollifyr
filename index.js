@@ -33,4 +33,4 @@ client.on("message", async (message) => {
 });
 
 //Permet au bot de se connecter avec son token
-client.login(token);
+client.login(process.env.TOKEN);

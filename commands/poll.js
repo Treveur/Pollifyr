@@ -17,7 +17,7 @@ module.exports = {
         
         var emojis = [];
 
-        let response = options.forEach((element, index) => {
+        options.forEach((element, index) => {
             let match = emotRegex.exec(element)
 
             if(match != null){
