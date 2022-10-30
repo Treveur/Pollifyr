@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const EmojiRegex = require('emoji-regex/RGI_Emoji.js');
 
 module.exports = {
@@ -21,10 +21,10 @@ module.exports = {
 		options.forEach((element, index) => {
 			const match = emotRegex.exec(element);
 
-			if(match != null) {
+			if (match != null) {
 				emojis.push(match[0]);
 			}
-			else{
+			else {
 				const emoji = emojiProp.shift();
 				emojis.push(emoji);
 				options[index] = `${element} ${emoji}`;
@@ -35,7 +35,7 @@ module.exports = {
 		const response = options.join('\n');
 
 		// Create embed message
-		const embedMessage = new Discord.MessageEmbed()
+		const embedMessage = new EmbedBuilder()
 			.setColor('#8e24aa')
 			.setAuthor('Sondage')
 			.setTitle(question)
