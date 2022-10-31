@@ -1,22 +1,35 @@
 const { EmbedBuilder } = require('discord.js');
 const EmojiRegex = require('emoji-regex/RGI_Emoji.js');
+const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-	name: 'poll',
-	description: 'Simple way to create poll with emoji',
-	// eslint-disable-next-line no-unused-vars
-	async execute(message, args) {
+	data: new SlashCommandBuilder()
+		.setName('poll')
+		.setDescription('Simple way to create poll with emoji')
+		.addStringOption((option) =>
+			option.setName('question')
+				.setDescription('Question that will appear in the survey')
+				.setRequired(true),
+		)
+		.addStringOption((option) =>
+			option.setName('answers')
+				.setDescription('Answers')
+				.setRequired(true)),
+
+	async execute(interaction) {
 		const emotRegex = EmojiRegex();
 		const emojiProp = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
 
-		// Récupération des éléments entre quotes
-		let options = message.content.match(/".*?"/g);
-		options = options.map(x => x.replace(/"/g, '')).filter(x => x != '');
+		const questionOption = interaction.options.getString('question');
+		const answers = interaction.options.getString('answers');
 
-		// Récupération de la question
-		const question = `📊 ${options.shift()}`;
-
+		// Get label question
+		const question = `📊 ${questionOption}`;
 		const emojis = [];
+
+		// Get answers
+		let options = answers.match(/.*?;/g);
+		options = options.map(x => x.replace(/;/g, '')).filter(x => x != '');
 
 		options.forEach((element, index) => {
 			const match = emotRegex.exec(element);
@@ -37,16 +50,16 @@ module.exports = {
 		// Create embed message
 		const embedMessage = new EmbedBuilder()
 			.setColor('#8e24aa')
-			.setAuthor('Sondage')
+			.setAuthor({ name: 'Survey' })
 			.setTitle(question)
 			.setDescription(response)
 			.setTimestamp()
-			.setFooter(`De ${message.author.username}`);
+			.setFooter({ text: `From ${interaction.member.nickname ?? interaction.user.username}` });
 
-		// Envoi message message
-		const sendedMessage = await message.channel.send(embedMessage);
+		// Send embed message
+		const sendedMessage = await interaction.reply({ embeds: [embedMessage], fetchReply: true });
 
-		// Affectation des réactions
+		// Add reactions
 		emojis.forEach(emote => {
 			sendedMessage.react(emote)
 				.catch((error) => console.error(error + ' Emoji not found'));

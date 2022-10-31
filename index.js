@@ -4,7 +4,11 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
 // Permet d'intéragir avec le client discord
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessageReactions],
+});
 client.commands = new Collection();
 
 
@@ -39,11 +43,10 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 	catch (error) {
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		console.error(error);
 	}
 });
 
-// When the client is ready, run this code (only once)
-// We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, async c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
 });
