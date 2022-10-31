@@ -1,6 +1,6 @@
 {
   "name": "pollifyr",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Create",
   "main": "index.js",
   "scripts": {
