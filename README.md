@@ -1,33 +1,88 @@
 # Pollifyr
+___
 
 Create polls easily with personalized reactions.
 
+## Installation
+___
 
-## Use the bot
+### install package
 
-Use the command !poll "Your question ?" "Answer 1 👍" "Answer 1 👎".
-Your bot must have write right to post message.
+Then in a command line in the bot's folder use `npm install`.
+Now, to start the bot use `node index.js`.
 
-## Host the bot
+### Host the bot
 
 You can host the bot on your own server.
-To do this, you must modify config.json and add **`token`** key under **`prefix`** key :
+To do this, you must modify config.json and add **`clientId`** and **`token`** key :
 
 ```json
 {
-	"prefix":"!",
-	"token":"your token",
+	"clientId": "CLIENTID", // Your application id
+	"guildId": "GUILD_ID", // Your guild id (server test)
+	"token": "DISCORD_TOKEN",
 }
 ```
 
-then call **"token"** key in index.js :
+**`guildId`** is only needed in case of you want to test first on your own server.
+
+### Create commands on your server
+
+Before use commands, you must add commands to your application.
+
+#### Test server
+
+use `npm` or `yarn`
 
 ```javascript
-const { prefix, token } = require('./config.json');
-...
-client.login(token);
+yarn run update-commands
+// or
+npm run update-commands
+```
+be sure, method to update your app global is comment:
+
+```javascript
+/* deploy-commands.js */
+
+const data = await rest.put(
+	Routes.applicationGuildCommands(clientId, guildId),
+	{ body: commands },
+);
+
+// const data = await rest.put(
+// 	Routes.applicationCommands(clientId),
+// 	{ body: commands },
+// );
 ```
 
-Then in a command line in the bot's folder use `npm install`.
+#### Global server
 
-Now, to start the bot use `node index.js`.
+Same as Test server, but this time be sure, method to update your app test is comment:
+
+```javascript
+/* deploy-commands.js */
+
+// const data = await rest.put(
+// 	Routes.applicationGuildCommands(clientId, guildId),
+// 	{ body: commands },
+// );
+
+const data = await rest.put(
+	Routes.applicationCommands(clientId),
+	{ body: commands },
+);
+```
+
+## Usage
+___
+
+### Use the bot
+
+Use the command /poll **question** "Your question ?" **answers** "Answer 1 👍; Answer 2 👎;".
+Your bot must have write right to post message.
+
+# What's next ?
+
+* Localization
+* Environnement handling (test server / global server)
+* Help command
