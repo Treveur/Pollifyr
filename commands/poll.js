@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const EmojiRegex = require('emoji-regex/RGI_Emoji.js');
+const EmojiRegex = require('emoji-regex');
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
@@ -32,7 +32,8 @@ module.exports = {
 		options = options.map(x => x.replace(/;/g, '')).filter(x => x != '');
 
 		options.forEach((element, index) => {
-			const match = emotRegex.exec(element);
+
+			const match = element.match(emotRegex);
 
 			if (match != null) {
 				emojis.push(match[0]);

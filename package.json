@@ -4,15 +4,15 @@
   "description": "Create",
   "main": "index.js",
   "scripts": {
-    "update-commands" : "node deploy-commands.js",
-    "delete-commands" : "node delete-command.js",
+    "update-commands": "node deploy-commands.js",
+    "delete-commands": "node delete-command.js",
     "start": "node index.js"
   },
   "author": "Treveur",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.6.0",
-    "emoji-regex": "^9.2.0"
+    "emoji-regex": "^10.2.1"
   },
   "engines": {
     "node": "16.13.0",
