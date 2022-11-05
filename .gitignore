@@ -1,4 +1,10 @@
+# Config
+config.json
 package-lock.json
 yarn.lock
-config.json
+
+# OS generated files
+.DS_Store
+
+# Sources
 node_modules/
