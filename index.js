@@ -1,7 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
 
 // Permet d'intéragir avec le client discord
 const client = new Client({
@@ -41,5 +40,5 @@ for (const file of eventFiles) {
 	}
 }
 
-// Permet au bot de se connecter avec son token
-client.login(token);
+// Application authentification
+client.login(process.env.DISCORD_TOKEN);
