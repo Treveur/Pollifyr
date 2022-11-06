@@ -1,6 +1,6 @@
 {
   "name": "pollifyr",
-  "version": "1.1.0",
+  "version": "2.1.0",
   "description": "A simple tool to create poll with emojis",
   "main": "index.js",
   "scripts": {
