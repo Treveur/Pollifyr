@@ -1,10 +1,8 @@
 # Pollifyr
-___
 
 Create polls easily with personalized reactions.
 
 ## Installation
-___
 
 ### install package
 
@@ -14,67 +12,44 @@ Now, to start the bot use `node index.js`.
 ### Host the bot
 
 You can host the bot on your own server.
-To do this, you must modify config.json and add **`clientId`** and **`token`** key :
+To do this, you must add a .env file and add **`CLIENT_ID`** and **`DISCORD_TOKEN`** key :
 
-```json
-{
-	"clientId": "CLIENTID", // Your application id
-	"guildId": "GUILD_ID", // Your guild id (server test)
-	"token": "DISCORD_TOKEN",
-}
+```bash
+# Ensure you, your .env file is only on your machine
+CLIENT_ID=# Client/application id
+GUILD_ID=# Test local serveur id
+DISCORD_TOKEN=# Discord token
 ```
 
-**`guildId`** is only needed in case of you want to test first on your own server.
+**`GUILD_ID`** is only needed in case of you want to test first on your own server.
 
 ### Create commands on your server
 
 Before use commands, you must add commands to your application.
 
-#### Test server
+#### Add or update commands
 
 use `npm` or `yarn`
 
-```javascript
-yarn run update-commands
-// or
+```bash
+yarn update-commands
+# or
 npm run update-commands
 ```
-be sure, method to update your app global is comment:
 
-```javascript
-/* deploy-commands.js */
+Add **`:local`** if you want test on local server `yarn update-commands:local`
 
-const data = await rest.put(
-	Routes.applicationGuildCommands(clientId, guildId),
-	{ body: commands },
-);
+#### Delete commands
 
-// const data = await rest.put(
-// 	Routes.applicationCommands(clientId),
-// 	{ body: commands },
-// );
+```bash
+yarn delete-commands
+# or
+npm run delete-commands
 ```
 
-#### Global server
-
-Same as Test server, but this time be sure, method to update your app test is comment:
-
-```javascript
-/* deploy-commands.js */
-
-// const data = await rest.put(
-// 	Routes.applicationGuildCommands(clientId, guildId),
-// 	{ body: commands },
-// );
-
-const data = await rest.put(
-	Routes.applicationCommands(clientId),
-	{ body: commands },
-);
-```
+Add **`:local`** if you want test on local server `yarn delete-commands:local`
 
 ## Usage
-___
 
 ### Use the bot
 
@@ -84,5 +59,4 @@ Your bot must have write right to post message.
 # What's next ?
 
 * Localization
-* Environnement handling (test server / global server)
 * Help command
