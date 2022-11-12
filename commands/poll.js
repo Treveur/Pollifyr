@@ -1,6 +1,6 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 const EmojiRegex = require('emoji-regex');
-const { SlashCommandBuilder } = require('discord.js');
+const i18n = require('../utils/i18n');
 
 module.exports = {
 	data: new SlashCommandBuilder()
