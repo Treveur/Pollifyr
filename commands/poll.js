@@ -5,18 +5,34 @@ const i18n = require('../utils/i18n');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('poll')
+		.setNameLocalizations({
+			fr: 'poll',
+		})
 		.setDescription('Simple way to create poll with emoji')
-		.addStringOption((option) =>
-			option.setName('question')
-				.setDescription('Question that will appear in the survey')
-				.setRequired(true),
-		)
-		.addStringOption((option) =>
-			option.setName('answers')
-				.setDescription('Answers')
-				.setRequired(true)),
-
+		.setDescriptionLocalizations({
+			fr: 'Une manière simple de créer des sondage avec des emojis',
+		})
+		.addStringOption((option) => option.setName('question')
+			.setDescription('Question that will appear in the survey')
+			.setNameLocalizations({
+				fr: 'question',
+			})
+			.setDescriptionLocalizations({
+				fr: 'Question qui apparaitra dans le songade',
+			})
+			.setRequired(true))
+		.addStringOption((option) => option.setName('answers')
+			.setDescription('Answers')
+			.setNameLocalizations({
+				fr: 'réponses',
+			})
+			.setDescriptionLocalizations({
+				fr: 'Réponses',
+			})
+			.setRequired(true)),
 	async execute(interaction) {
+		// Create i18next object and define language
+		const t = i18n(interaction.locale);
 		const emotRegex = EmojiRegex();
 		const emojiProp = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
 
@@ -51,11 +67,14 @@ module.exports = {
 		// Create embed message
 		const embedMessage = new EmbedBuilder()
 			.setColor('#8e24aa')
-			.setAuthor({ name: 'Survey' })
+			.setAuthor({ name: t('answer.survey') })
 			.setTitle(question)
 			.setDescription(response)
 			.setTimestamp()
-			.setFooter({ text: `From ${interaction.member.nickname ?? interaction.user.username}` });
+			.setFooter({
+				text: t('answer.from',
+					{ user: interaction.member.nickname ?? interaction.user.username }),
+			});
 
 		// Send embed message
 		const sendedMessage = await interaction.reply({ embeds: [embedMessage], fetchReply: true });
