@@ -58,5 +58,5 @@ Your bot must have write right to post message.
 
 # What's next ?
 
-* Localization
+* Test
 * Help command
