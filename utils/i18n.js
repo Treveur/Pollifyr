@@ -1,19 +1,23 @@
+const { join } = require('node:path');
+const { readdirSync, lstatSync } = require('node:fs');
 const i18next = require('i18next');
-
-const resources = {
-	en: {
-		translation: require('../locales/en/translation.json'),
-	},
-	fr: {
-		translation: require('../locales/fr/translation.json'),
-	},
-};
+const backend = require('i18next-fs-backend');
 
 i18next
+	.use(backend)
 	.init({
-		debug: true,
+		// debug: true,
+		nitImmediate: false,
+		preload: readdirSync(join(__dirname, '../locales')).filter((fileName) => {
+			const joinedPath = join(join(__dirname, '../locales'), fileName);
+			const isDirectory = lstatSync(joinedPath).isDirectory();
+			return isDirectory;
+		}),
+		fallbackLng: 'en',
 		lng: 'en',
-		resources: resources,
+		backend: {
+			loadPath: join(__dirname, '../locales/{{lng}}/{{ns}}.json'),
+		},
 	});
 
 module.exports = (lng) => i18next.getFixedT(lng);
