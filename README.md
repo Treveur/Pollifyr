@@ -1,5 +1,7 @@
 # Pollifyr
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/0814f0f2371b94eede63/maintainability)](https://codeclimate.com/github/Treveur/Pollifyr/maintainability)
+
 Create polls easily with personalized reactions.
 
 ## Installation
